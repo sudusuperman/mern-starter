@@ -1,6 +1,5 @@
 web:
-  build: .
-  dockerfile: Dockerfile-development
+  image: mernstarter_web:latest
   links:
    - db
   ports:
