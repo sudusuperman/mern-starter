@@ -30,6 +30,15 @@ test('renders properly', t => {
   t.truthy(wrapper.find('Header + div').children(), children);
 });
 
+const ContextType = {
+  // Navigation manager, e.g. history.push('/home')
+  // https://github.com/mjackson/history
+  history: PropTypes.object.isRequired,
+  // Enables critical path CSS rendering
+  // https://github.com/kriasoft/isomorphic-style-loader
+  insertCss: PropTypes.func.isRequired,
+};
+
 test('calls componentDidMount', t => {
   sinon.spy(App.prototype, 'componentDidMount');
   mount(

@@ -66,3 +66,8 @@
     margin-top: 16px;
   }
 }
+
+.nav {
+  float: right;
+  margin-top: 6px;
+}

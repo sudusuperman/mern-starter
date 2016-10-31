@@ -18,6 +18,11 @@ test('renders the header properly', t => {
       context: {
         router,
         intl,
+        insertCss: (...styles) => {
+          // eslint-disable-next-line no-underscore-dangle
+          const removeCss = styles.map(x => x._insertCss());
+          return () => { removeCss.forEach(f => f()); };
+        },
       },
     }
   );
