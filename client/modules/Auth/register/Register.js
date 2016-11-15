@@ -57,7 +57,7 @@ class Register extends Component {
         this.props.dispatch(registerUserRequest(usernameRef.value, password1Ref.value, {email: emailRef.value}))
           .then(error => {
             if (error) {
-              this.setState({userExistError: error});
+              this.setState({userExistError: error.message});
               usernameRef.value = emailRef.value = password1Ref.value = password2Ref.value = '';
             }
             else {
@@ -87,6 +87,7 @@ class Register extends Component {
           <div className={s.container}>
             <h1>{'Log in with username and password'}</h1>
             {this.errorMessage('input')}
+            {this.errorMessage('userExist')}
             <form method="post">
               <div className={s.formGroup}>
                 <span><font color="red">*</font></span>

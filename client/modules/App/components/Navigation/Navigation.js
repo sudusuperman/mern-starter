@@ -2,10 +2,11 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router';
+import {DropdownButton, MenuItem } from 'react-bootstrap';
+
 
 import cx from 'classnames';
 import s from './Navigation.css';
-import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
 
 // Import Actions
 import { logoutUserRequest} from '../../../Auth/AuthActions';
@@ -21,28 +22,16 @@ class Navigation extends Component {
   render() {
     if (this.props.token){
       return (
+
         <div className={cx(s.root, this.props.className)} role="navigation">
-          <Dropdown show = {false}>
-            <DropdownTrigger>
-              <span className={s.link}>{this.props.token.username}</span>
-            </DropdownTrigger>
-            <DropdownContent>
-              Username
-              <ul>
-                <li>
-                  <a href="/profile">Profile</a>
-                </li>
-                <li>
-                  <a href="/favorites">Favorites</a>
-                </li>
-                <li>
-                  <a href="/logout">Log Out</a>
-                </li>
-              </ul>
-            </DropdownContent>
-          </Dropdown>
-          <span className={s.spacer}>or</span>
-          <a className={cx(s.link, s.highlight)} onClick={this.logoutUser}>Log out</a>
+          <div className="dropdown">
+            <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span className={s.link}>{this.props.token.username}</span>
+              <span className="caret"></span></button>
+            <ul className="dropdown-menu">
+              <li><h4 href="#">XXX@XXX</h4></li>
+              <li><a className={cx(s.link, s.highlight)} onClick={this.logoutUser}>Log out</a></li>
+            </ul>
+          </div>
         </div>
       );
     }

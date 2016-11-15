@@ -25,7 +25,7 @@ export function registerUserRequest(username, password, profile) {
         password: password,
         profile: profile,
     }).then(res => {
-      dispatch(addAccessToken(res.token))
+      dispatch(addAccessToken(res.token));
       return res.error;
     });
   };
@@ -48,7 +48,7 @@ export function logoutUserRequest(token) {
     return callAuth('logout', 'post', {
       token: token,
     }).then(res => {
-      dispatch(removeAccessToken())
+      dispatch(removeAccessToken());
       return res.error;
     });
   };
