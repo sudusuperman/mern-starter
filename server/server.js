@@ -5,6 +5,13 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import IntlWrapper from '../client/modules/Intl/IntlWrapper';
 
+//Du add
+var cookieParser = require('cookie-parser');
+var session = require('cookie-session');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+//Du end
+
 // Webpack Requirements
 import webpack from 'webpack';
 import config from '../webpack.config.dev';
@@ -33,6 +40,9 @@ import Helmet from 'react-helmet';
 import routes from '../client/routes';
 import { fetchComponentData } from './util/fetchData';
 import posts from './routes/post.routes';
+//Du add
+import auth from './routes/auth.routes';
+//Du end
 import dummyData from './dummyData';
 import serverConfig from './config';
 
@@ -54,8 +64,26 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
 app.use(compression());
 app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
+//Du add
+app.use(cookieParser());
+app.use(session({keys: ['secretkey1', 'secretkey2', '...']}));
+//Du end
 app.use(Express.static(path.resolve(__dirname, '../dist')));
 app.use('/api', posts);
+
+//Du add for authentiation
+app.use('/auth', auth);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Configure passport-local to use account model for authentication
+var Account = require('./models/account');
+passport.use(new LocalStrategy(Account.authenticate()));
+
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+//Du end
 
 // Render Initial HTML
 const renderFullPage = (html, initialState) => {

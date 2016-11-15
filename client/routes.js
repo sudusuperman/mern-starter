@@ -43,7 +43,7 @@ export default (
       path="/login"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./modules/App/routes/login/Login').default);
+          cb(null, require('./modules/Auth/login/Login').default);
         });
       }}
     />
@@ -51,7 +51,7 @@ export default (
       path="/register"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./modules/App/routes/register/Register').default);
+          cb(null, require('./modules/Auth/register/Register').default);
         });
       }}
     />
